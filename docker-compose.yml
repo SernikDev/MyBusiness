@@ -1,0 +1,20 @@
+version: "3.3"
+
+services:
+  app:
+    container_name: ${CONTAINER_NAME}
+    tty: true
+    build:
+      context: ./Docker
+      args:
+        USER_NAME: ${USER_NAME}
+        USER_ID: ${USER_ID}
+        NODE_VERSION: ${NODE_VERSION}
+        APP_FOLDER_NAME: ${APP_FOLDER_NAME}
+    volumes:
+      - ./${APP_FOLDER_NAME}:/home/${USER_NAME}/${APP_FOLDER_NAME}
+    privileged: true
+    environment:
+      - DISPLAY=$DISPLAY
+      - ELECTRON_ENABLE_LOGGING=true
+    network_mode: host
